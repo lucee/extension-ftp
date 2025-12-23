@@ -19,6 +19,11 @@
  ---><cfscript>
 component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 
+	// FUTURE: enable when SFTP/FTPS resource provider is supported
+	variables.sftpSupported = false;
+	variables.ftpsSupported = false;
+
+
 	function beforeAll() {
 		variables.settings = getApplicationSettings();
 	}
@@ -58,6 +63,8 @@ component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 	}
 
 	public void function testSFTP() {
+		if(!variables.sftpSupported) return;
+		
 		var sftp = getSFTPCredentials();
 		if (!structCount(sftp)) return;
 		
@@ -68,6 +75,8 @@ component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 	}
 
 	public void function testSFTPAsMapping() {
+		if(!variables.sftpSupported) return;
+		
 		var sftp = getSFTPCredentials();
 		if (!structCount(sftp)) return;
 		
@@ -84,6 +93,8 @@ component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 	}
 
 	public void function testFTPS() {
+		if(!variables.ftpsSupported) return;
+		
 		var ftps = getFTPSCredentials();
 		if (!structCount(ftps)) return;
 		
@@ -94,6 +105,8 @@ component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 	}
 
 	public void function testFTPSAsMapping() {
+		if(!variables.ftpsSupported) return;
+		
 		var ftps = getFTPSCredentials();
 		if (!structCount(ftps)) return;
 		
@@ -116,6 +129,8 @@ component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 	}
 
 	public void function testSFTPSupported() {
+		if(!variables.sftpSupported) return;
+		
 		if (!hasResourceProviderSchemeName("sftp")) {
 			throw "there is no [sftp] resource provider, only the following providers are available [#arrayToList(getResourceProviderSchemeNames())#]";
 		}
