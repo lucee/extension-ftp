@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lucee</groupId>
     <artifactId>ftp-extension</artifactId>
-    <version>1.0.0.1-BETA</version>
+    <version>1.0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>FTP</name>
 
@@ -63,9 +63,6 @@
     <url>https://github.com/lucee/extension-ftp</url>
 
     <profiles>
-
-
-
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
@@ -185,9 +182,16 @@
                         </goals>
                         <configuration>
                             <artifacts>
+                                <!-- Main extension artifact -->
                                 <artifact>
                                     <file>${project.build.directory}/${project.artifactId}-${project.version}.lex</file>
                                     <type>lex</type>
+                                </artifact>
+                                <!-- Logo artifact with classifier -->
+                                <artifact>
+                                    <file>${project.basedir}/source/images/logo.png</file>
+                                    <type>png</type>
+                                    <classifier>logo</classifier>
                                 </artifact>
                             </artifacts>
                         </configuration>
