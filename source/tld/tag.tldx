@@ -16,7 +16,7 @@
 	<!-- Ftp -->
 	<tag>
 		<name>ftp</name>
-		<tag-class maven="{mvnGroupId}:{mvnArtifactId}:{mvnVersion}">org.lucee.extension.ftp.tag.Ftp</tag-class>
+		<tag-class maven="{jarGroupId}:{jarArtifactId}:{version}">org.lucee.extension.ftp.tag.Ftp</tag-class>
 		<body-content>empty</body-content>
 		<body-rtexprvalue>false</body-rtexprvalue>
 		<script>

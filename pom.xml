@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lucee</groupId>
     <artifactId>ftp-extension</artifactId>
-    <version>1.0.0.2-SNAPSHOT</version>
+    <version>1.0.0.3-RC</version>
     <packaging>pom</packaging>
     <name>FTP</name>
 
@@ -15,10 +15,9 @@
         <id>C09479BE-3309-47AB-BD2D89F9973D8A03</id>
         <bundlename>ftp.extension</bundlename>
         <class>org.lucee.extension.ftp.vfs.FTPResourceProvider</class>
-        <mvnGroupId>org.lucee</mvnGroupId>
-        <mvnGroupPath>org/lucee</mvnGroupPath>
-        <mvnArtifactId>ftp</mvnArtifactId>
-        <mvnVersion>1.0.0.0-ALPHA</mvnVersion>
+        <jarGroupId>org.lucee</jarGroupId>
+        <jarGroupPath>org/lucee</jarGroupPath>
+        <jarArtifactId>ftp</jarArtifactId>
         <filename>ftp-extension</filename>
         <luceeCoreVersion>7.1.0.0</luceeCoreVersion>
         <releaseType>server</releaseType>
@@ -136,10 +135,12 @@
                                     <property name="camelname" value="${camelname}"/>
                                     <property name="maven.goal" value="${goal}"/>
                                     <property name="class" value="${class}"/>
-                                    <property name="mvnGroupId" value="${mvnGroupId}"/>
-                                    <property name="mvnGroupPath" value="${mvnGroupPath}"/>
-                                    <property name="mvnArtifactId" value="${mvnArtifactId}"/>
-                                    <property name="mvnVersion" value="${project.version}"/>
+                                    <property name="jarGroupId" value="${jarGroupId}"/>
+                                    <property name="groupId" value="${project.groupId}"/>
+                                    <property name="jarGroupPath" value="${jarGroupPath}"/>
+                                    <property name="jarArtifactId" value="${jarArtifactId}"/>
+                                    <property name="artifactId" value="${project.artifactId}"/>
+                                    <property name="version" value="${project.version}"/>
 
                                     <property name="maven.username" value="${env.MAVEN_USERNAME}"/>
                                     <property name="maven.password" value="${env.MAVEN_PASSWORD}"/>

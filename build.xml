@@ -45,7 +45,7 @@
         <condition property="artifact.exists">
             <and>
                 <equals arg1="${is.deploy}" arg2="true"/>
-                <http url="https://repo1.maven.org/maven2/${mvnGroupPath}/${mvnArtifactId}/${mvnVersion}/${mvnArtifactId}-${mvnVersion}.pom"/>
+                <http url="https://repo1.maven.org/maven2/${jarGroupPath}/${jarArtifactId}/${version}/${jarArtifactId}-${version}.pom"/>
             </and>
         </condition>
 
@@ -58,15 +58,15 @@
         <echo>goal:${maven.goal}</echo>
         <echo>effective.goal:${effective.goal}</echo>
         <echo>performRelease:${is.deploy}</echo>
-        <echo>groupId:${mvnGroupId}</echo>
-        <echo>groupPath:${mvnGroupPath}</echo>
-        <echo>artifactId:${mvnArtifactId}</echo>
-        <echo>mvnVersion:${mvnVersion}</echo>
+        <echo>groupId:${jarGroupId}</echo>
+        <echo>groupPath:${jarGroupPath}</echo>
+        <echo>artifactId:${jarArtifactId}</echo>
+        <echo>version:${version}</echo>
 
          <exec dir="source/java" executable="mvn" failonerror="true">
             <arg value="clean"/>
             <arg value="${effective.goal}"/>
-            <arg value="-Drevision=${mvnVersion}"/>
+            <arg value="-Drevision=${version}"/>
             <arg value="-DperformRelease=${is.deploy}"/>
             <!-- <arg value="-X"/>  Debug output -->
             <arg value="-e"/>  <!-- Error details -->
@@ -87,7 +87,7 @@
             <arg value="-Dmdep.copyPom=true"/>
             <arg value="-Dmdep.useRepositoryLayout=true"/>
             <arg value="-DexcludeScope=provided"/>
-            <arg value="-Drevision=${mvnVersion}"/>
+            <arg value="-Drevision=${version}"/>
             <arg value="dependency:copy-dependencies"/>
         </exec>
 
@@ -110,16 +110,16 @@
     </copy>
 
     <!-- Copy POM from source location -->
-    <copy file="source/java/pom.xml" tofile="${dist}/extension/maven/${mvnArtifactId}-${mvnVersion}.pom"/>
+    <copy file="source/java/pom.xml" tofile="${dist}/extension/maven/${jarArtifactId}-${version}.pom"/>
     
     <!-- Ensure the target directory exists -->
-    <mkdir dir="${dist}/extension/maven/org/lucee/${mvnArtifactId}/${mvnVersion}/" />
+    <mkdir dir="${dist}/extension/maven/org/lucee/${jarArtifactId}/${version}/" />
     
     <!-- Move the files -->
-    <move file="${dist}/extension/maven/${mvnArtifactId}-${mvnVersion}.jar" 
-          tofile="${dist}/extension/maven/org/lucee/${mvnArtifactId}/${mvnVersion}/${mvnArtifactId}-${mvnVersion}.jar" />
-    <move file="${dist}/extension/maven/${mvnArtifactId}-${mvnVersion}.pom" 
-          tofile="${dist}/extension/maven/org/lucee/${mvnArtifactId}/${mvnVersion}/${mvnArtifactId}-${mvnVersion}.pom" />
+    <move file="${dist}/extension/maven/${jarArtifactId}-${version}.jar" 
+          tofile="${dist}/extension/maven/org/lucee/${jarArtifactId}/${version}/${jarArtifactId}-${version}.jar" />
+    <move file="${dist}/extension/maven/${jarArtifactId}-${version}.pom" 
+          tofile="${dist}/extension/maven/org/lucee/${jarArtifactId}/${version}/${jarArtifactId}-${version}.pom" />
     
 
 
@@ -145,14 +145,16 @@
         </tstamp>
         <echo file="${dist}/extension/META-INF/MANIFEST.MF">Manifest-Version: 1.0
 Built-Date: ${NOW}
-version: "${mvnVersion}"
+version: "${version}"
 id: "${id}"
+groupId: "${groupId}"
+artifactId: "${artifactId}"
 name: "${label}"
 description: "${description}"
 lucee-core-version: "${luceeCoreVersion}"
 release-type: ${releaseType}
 start-bundles: false
-resource: "[{'class':'${class}','maven':'${mvnGroupId}:${mvnArtifactId}:${mvnVersion}','scheme':'ftp','lock-timeout':'20000','socket-timeout':'-1','client-timeout':'60000'}]"
+resource: "[{'class':'${class}','maven':'${jarGroupId}:${jarArtifactId}:${version}','scheme':'ftp','lock-timeout':'20000','socket-timeout':'-1','client-timeout':'60000'}]"
 </echo>
     </target>
   
@@ -161,11 +163,11 @@ resource: "[{'class':'${class}','maven':'${mvnGroupId}:${mvnArtifactId}:${mvnVer
             description="generate the distribution" >
         
         <!-- Put everything in ${build} into .jar file
-        <jar jarfile="${dist}/extension/jars/${mvnArtifactId}-${mvnVersion}.jar" 
+        <jar jarfile="${dist}/extension/jars/${jarArtifactId}-${version}.jar" 
              basedir="${build}"  
              manifest="${src}/META-INF/MANIFEST.MF">
             <manifest>
-                <attribute name="Bundle-Version" value="${mvnVersion}"/>
+                <attribute name="Bundle-Version" value="${version}"/>
                 <attribute name="Built-Date" value="${NOW}"/>
                 <attribute name="Bundle-SymbolicName" value="${bundlename}"/>
             </manifest>
@@ -183,18 +185,18 @@ resource: "[{'class':'${class}','maven':'${mvnGroupId}:${mvnArtifactId}:${mvnVer
         <copy file="${srcTld}/tag.tldx" tofile="${dist}/extension/tlds/ftp-tags.tldx" />
         <replaceregexp 
           file="${dist}/extension/tlds/ftp-tags.tldx" 
-          match="\{mvnGroupId\}" 
-          replace="${mvnGroupId}" 
+          match="\{jarGroupId\}" 
+          replace="${jarGroupId}" 
           byline="true"/>
         <replaceregexp 
           file="${dist}/extension/tlds/ftp-tags.tldx" 
-          match="\{mvnArtifactId\}" 
-          replace="${mvnArtifactId}" 
+          match="\{jarArtifactId\}" 
+          replace="${jarArtifactId}" 
           byline="true"/>
         <replaceregexp 
           file="${dist}/extension/tlds/ftp-tags.tldx" 
-          match="\{mvnVersion\}" 
-          replace="${mvnVersion}" 
+          match="\{version\}" 
+          replace="${version}" 
           byline="true"/>
 
         <copy todir="${dist}/extension/context">
@@ -204,7 +206,7 @@ resource: "[{'class':'${class}','maven':'${mvnGroupId}:${mvnArtifactId}:${mvnVer
         </copy>
 
         <!-- Zip everything -->
-        <zip destfile="${dist}/${filename}-${mvnVersion}.lex">
+        <zip destfile="${dist}/${filename}-${version}.lex">
             <zipfileset dir="${dist}/extension"/>
         </zip>
     </target>
