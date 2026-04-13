@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lucee</groupId>
     <artifactId>ftp-extension</artifactId>
-    <version>1.0.0.4-RC</version>
+    <version>1.0.0.5-RC</version>
     <packaging>pom</packaging>
     <name>FTP</name>
 
@@ -87,6 +87,7 @@
                                 <configuration>
                                     <files>
                                         <file>${project.build.directory}/${project.artifactId}-${project.version}.lex</file>
+                                        <file>${project.build.directory}/${project.artifactId}-${project.version}.lite.lex</file>
                                     </files>
                                 </configuration>
                             </execution>
@@ -183,12 +184,15 @@
                         </goals>
                         <configuration>
                             <artifacts>
-                                <!-- Main extension artifact -->
                                 <artifact>
                                     <file>${project.build.directory}/${project.artifactId}-${project.version}.lex</file>
                                     <type>lex</type>
                                 </artifact>
-                                <!-- Logo artifact with classifier -->
+                                <artifact>
+                                    <file>${project.build.directory}/${project.artifactId}-${project.version}.lite.lex</file>
+                                    <type>lex</type>
+                                    <classifier>lite</classifier>
+                                </artifact>
                                 <artifact>
                                     <file>${project.basedir}/source/images/logo.png</file>
                                     <type>png</type>
@@ -239,16 +243,17 @@
                 <version>3.0.0-M1</version>
                 <executions>
                     <execution>
-                        <id>default-deploy</id>
+                        <id>deploy-lite</id>
                         <phase>deploy</phase>
                         <goals>
                             <goal>deploy-file</goal>
                         </goals>
                         <configuration>
-                            <file>${project.build.directory}/${project.artifactId}-${project.version}.lex</file>
+                            <file>${project.build.directory}/${project.artifactId}-${project.version}.lite.lex</file>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>${project.artifactId}</artifactId>
                             <version>${project.version}</version>
+                            <classifier>lite</classifier>
                             <repositoryId>ossrh</repositoryId>
                             <url>${deploy.url}</url>
                             <packaging>lex</packaging>
