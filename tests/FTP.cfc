@@ -36,7 +36,7 @@ component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 		var ftps=getFTPSCredentials();
 		if (!structCount(ftps)) return;
 		_test(
-			secure: true,
+			secure: "FTPS",
 			host: ftps.server,
 			user: ftps.username,
 			pass: ftps.password,
@@ -58,7 +58,7 @@ component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 		);
 	}
 	
-	private function _test(required boolean secure,required string host,required number port=21,required string user,required string pass,required string base){
+	private function _test(required any secure,required string host,required number port=21,required string user,required string pass,required string base){
 
 		ftp action = "open" 
 			connection = "conn" 
@@ -117,7 +117,7 @@ component extends="org.lucee.cfml.test.LuceeTestCase" labels="ftp" {
 
 			//systemOutput("SFTP #secure#", true);
 
-			if ( arguments.secure eq true && arguments.secure neq "FTPS" ){ // ftp and sftp are rather different 
+			if ( arguments.secure == true || ( isSimpleValue( arguments.secure ) && uCase( arguments.secure ) == "TRUE" ) ){ // sftp, not plain ftp or ftps
 				ftp action="quote" actionParam="ls" connection = "conn";
 				expect( trim( cfftp.returnValue ) ).NotToBeEmpty();
 				//systemOutput(cfftp, true);

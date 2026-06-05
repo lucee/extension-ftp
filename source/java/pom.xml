@@ -12,8 +12,9 @@
 
   <licenses>
     <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <name>The GNU Lesser General Public License, Version 2.1</name>
+      <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+      <distribution>repo</distribution>
     </license>
   </licenses>
 
@@ -52,6 +53,28 @@
                         <outputDirectory>${project.build.directory}/dependency</outputDirectory>
                         <includeScope>compile</includeScope>
                         <useRepositoryLayout>true</useRepositoryLayout>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>unpack</id>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>unpack</goal>
+                    </goals>
+                    <configuration>
+                        <artifactItems>
+                            <artifactItem>
+                                <groupId>javax.activation</groupId>
+                                <artifactId>activation</artifactId>
+                                <version>1.1.1</version>
+                                <type>jar</type>
+                                <overWrite>false</overWrite>
+                                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                                <includes>**/*.*</includes>
+                            </artifactItem>
+                        </artifactItems>
+                        <overWriteReleases>true</overWriteReleases>
+                        <overWriteSnapshots>true</overWriteSnapshots>
                     </configuration>
                 </execution>
             </executions>
@@ -133,37 +156,6 @@
         </plugin>
 
         <plugin>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-dependency-plugin</artifactId>
-         <version>2.10</version>
-         <executions>
-           <execution>
-             <id>unpack</id>
-             <phase>validate</phase>
-             <goals>
-               <goal>unpack</goal>
-             </goals>
-             <configuration>
-               <artifactItems>
-                 <artifactItem>
-                   <groupId>javax.activation</groupId>
-                    <artifactId>activation</artifactId>
-                    <version>1.1.1</version>
-                    <!-- <classifier></classifier> -->
-                   <type>jar</type>
-                   <overWrite>false</overWrite>
-                   <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                   <includes>**/*.*</includes> 
-                 </artifactItem>
-               </artifactItems>
-               <overWriteReleases>true</overWriteReleases>
-               <overWriteSnapshots>true</overWriteSnapshots>
-             </configuration>
-           </execution>
-         </executions>
-       </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
@@ -279,10 +271,10 @@
   
 
     <scm>
-        <url>https://github.com/lucee/osgi-bundle-activation</url>
-        <connection>scm:git:git://github.com/lucee/osgi-bundle-activation.git</connection>
-        <developerConnection>scm:git:git@github.com:lucee/osgi-bundle-activation.git</developerConnection>
-        <tag>javax.activation OSGi library</tag>
+        <url>https://github.com/lucee/extension-ftp</url>
+        <connection>scm:git:git://github.com/lucee/extension-ftp.git</connection>
+        <developerConnection>scm:git:git@github.com:lucee/extension-ftp.git</developerConnection>
+        <tag>${project.version}</tag>
     </scm>
 
 

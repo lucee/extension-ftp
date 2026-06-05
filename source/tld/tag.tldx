@@ -3,9 +3,9 @@
 <taglib>
 	<tlib-version>1.0</tlib-version>
 	<cfml-version>1.0</cfml-version>
-	<short-name>mail</short-name>
-	<uri>http://lucee.org/tag/mail</uri>
-	<display-name>Mail Tags</display-name>
+	<short-name>ftp</short-name>
+	<uri>http://lucee.org/tag/ftp</uri>
+	<display-name>FTP Tags</display-name>
 	<description/>
 	<name-space>cf</name-space>
 	<name-space-separator></name-space-separator>

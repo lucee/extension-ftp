@@ -115,7 +115,7 @@ public final class FTPResource extends ResourceSupport {
 	@Override
 	public void remove(boolean alsoRemoveChildren) throws IOException {
 		if (isRoot())
-			throw new FTPResoucreException("Can't delete root of ftp server");
+			throw new FTPResourceException("Can't delete root of ftp server");
 
 		if (alsoRemoveChildren)
 			engine.getResourceUtil().removeChildren(this, false);

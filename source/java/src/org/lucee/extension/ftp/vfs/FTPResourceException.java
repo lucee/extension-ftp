@@ -20,8 +20,8 @@ package org.lucee.extension.ftp.vfs;
 
 import java.io.IOException;
 
-public final class FTPResoucreException extends IOException {
-	public FTPResoucreException(String message) {
+public final class FTPResourceException extends IOException {
+	public FTPResourceException(String message) {
 		super(message);
 	}
 }
