@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lucee</groupId>
     <artifactId>ftp-extension</artifactId>
-    <version>1.0.0.7-RC</version>
+    <version>1.0.0.8-RC</version>
     <packaging>pom</packaging>
     <name>FTP</name>
 
@@ -14,7 +14,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <id>C09479BE-3309-47AB-BD2D89F9973D8A03</id>
-        <image>https://raw.githubusercontent.com/lucee/extension-ftp/master/source/images/logo.png</image>
+        <image>https://raw.githubusercontent.com/lucee/extension-ftp/main/source/images/logo.png</image>
         <buildDate>${maven.build.timestamp}</buildDate>
         <bundlename>ftp.extension</bundlename>
         <class>org.lucee.extension.ftp.vfs.FTPResourceProvider</class>
