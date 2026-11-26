@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.commons.net.ftp.FTPFile;
+import org.lucee.extension.ftp.QueryReturnType;
 import org.lucee.extension.ftp.AFTPClient;
 import org.lucee.extension.ftp.FTPConnection;
 import org.lucee.extension.ftp.FTPConnectionImpl;
@@ -154,6 +155,27 @@ public final class Ftp extends TagImpl {
 		this.recursive = false;
 		this.key = null;
 		this.passphrase = "";
+		this.returnType = QueryReturnType.QUERY;
+		this.columnKey = null;
+	}
+
+	private int returnType = QueryReturnType.QUERY;
+	private String columnKey;
+
+	/**
+	 * @param returntype
+	 *            how the result of action listdir is returned: query (default), array or struct
+	 */
+	public void setReturntype(String returntype) throws PageException {
+		this.returnType = QueryReturnType.parse(returntype, "ftp");
+	}
+
+	/**
+	 * @param columnKey
+	 *            the column whose value is used as key when returntype is struct
+	 */
+	public void setColumnkey(String columnKey) {
+		this.columnKey = columnKey;
 	}
 
 	public void setAction(String action) {
@@ -595,7 +617,7 @@ public final class Ftp extends TagImpl {
 		if (files == null)
 			files = new FTPFile[0];
 
-		pageContext.setVariable(name, toQuery(files, "ftp", directory, client.getRemoteAddress().getHostName()));
+		pageContext.setVariable(name, QueryReturnType.convert(toQuery(files, "ftp", directory, client.getRemoteAddress().getHostName()), returnType, columnKey));
 		writeCfftp(client);
 	}
 
